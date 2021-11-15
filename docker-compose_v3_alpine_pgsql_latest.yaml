@@ -61,6 +61,7 @@ services:
    com.zabbix.component: "zabbix-server"
    com.zabbix.dbtype: "pgsql"
    com.zabbix.os: "alpine"
+  restart: unless-stopped
 
  zabbix-proxy-sqlite3:
   image: zabbix/zabbix-proxy-sqlite3:alpine-5.0-latest
@@ -110,6 +111,7 @@ services:
    com.zabbix.component: "zabbix-proxy"
    com.zabbix.dbtype: "sqlite3"
    com.zabbix.os: "alpine"
+  restart: unless-stopped
 
  zabbix-proxy-mysql:
   image: zabbix/zabbix-proxy-mysql:alpine-5.0-latest
@@ -165,6 +167,7 @@ services:
    com.zabbix.component: "zabbix-proxy"
    com.zabbix.dbtype: "mysql"
    com.zabbix.os: "alpine"
+  restart: unless-stopped
 
  zabbix-web-apache-pgsql:
   image: zabbix/zabbix-web-apache-pgsql:alpine-5.0-latest
@@ -221,6 +224,7 @@ services:
    com.zabbix.webserver: "apache2"
    com.zabbix.dbtype: "pgsql"
    com.zabbix.os: "alpine"
+  restart: unless-stopped
 
  zabbix-web-nginx-pgsql:
   image: zabbix/zabbix-web-nginx-pgsql:alpine-5.0-latest
@@ -275,6 +279,7 @@ services:
    com.zabbix.webserver: "nginx"
    com.zabbix.dbtype: "pgsql"
    com.zabbix.os: "alpine"
+  restart: unless-stopped
 
  zabbix-agent:
   image: zabbix/zabbix-agent:alpine-5.0-latest
@@ -315,6 +320,7 @@ services:
    com.zabbix.company: "Zabbix LLC"
    com.zabbix.component: "zabbix-agentd"
    com.zabbix.os: "alpine"
+  restart: unless-stopped
 
  zabbix-java-gateway:
   image: zabbix/zabbix-java-gateway:alpine-5.0-latest
@@ -344,6 +350,7 @@ services:
    com.zabbix.company: "Zabbix LLC"
    com.zabbix.component: "java-gateway"
    com.zabbix.os: "alpine"
+  restart: unless-stopped
 
  zabbix-snmptraps:
   image: zabbix/zabbix-snmptraps:alpine-5.0-latest
@@ -373,6 +380,7 @@ services:
    com.zabbix.company: "Zabbix LLC"
    com.zabbix.component: "snmptraps"
    com.zabbix.os: "alpine"
+  restart: unless-stopped
 
  mysql-server:
   image: mysql:8.0
@@ -398,6 +406,7 @@ services:
      - mysql-server
      - zabbix-database
      - mysql-database
+  restart: unless-stopped
 
  postgres-server:
   image: postgres:13-alpine
@@ -419,6 +428,7 @@ services:
      - postgres-server
      - pgsql-server
      - pgsql-database
+  restart: unless-stopped
 
  db_data_mysql:
   image: busybox
@@ -426,11 +436,13 @@ services:
    - all
   volumes:
    - ./zbx_env/var/lib/mysql:/var/lib/mysql:rw
+  restart: unless-stopped
 
  db_data_pgsql:
   image: busybox
   volumes:
    - ./zbx_env/var/lib/postgresql/data:/var/lib/postgresql/data:rw
+  restart: unless-stopped
 
 # elasticsearch:
 #  image: elasticsearch
